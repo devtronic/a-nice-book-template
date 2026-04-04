@@ -1,0 +1,29 @@
+# Build output
+build/
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Editor artifacts
+*.swp
+*.swo
+.vscode/
+.idea/
+*.sublime-workspace
+
+# LaTeX intermediate files
+*.aux
+*.log
+*.toc
+*.out
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+*.nav
+*.snm
+*.vrb
+
+# Pandoc intermediate
+*.tex.bak

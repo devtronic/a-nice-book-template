@@ -1,0 +1,208 @@
+% ============================================================
+%  Book preamble — Modern design with Inter + Fira Code
+%  Included via --include-in-header (appended to pandoc's preamble)
+% ============================================================
+
+% ── Additional heading font families (optical-size variants) ─────
+% pandoc sets \setmainfont{Inter 18pt} from book.yaml.
+% We declare larger optical sizes for chapter/section headings.
+\newfontfamily\headingfontlg{Inter 28pt}[
+  BoldFont      = * Bold,
+  ItalicFont    = * Italic,
+  BoldItalicFont= * Bold Italic,
+]
+\newfontfamily\headingfontmd{Inter 24pt}[
+  BoldFont      = * Bold,
+  ItalicFont    = * Italic,
+  BoldItalicFont= * Bold Italic,
+]
+
+% ── Accent color (used in headings and callout borders) ──────────
+\usepackage{xcolor}
+\definecolor{accent}{HTML}{ac4142}    % Base16 keyword red
+\definecolor{accentblue}{HTML}{6a9fb5}% Base16 type blue
+\definecolor{accentgreen}{HTML}{90a959}% Base16 variable green
+\definecolor{accentorange}{HTML}{d28445}% Base16 definition orange
+\definecolor{rulecolor}{HTML}{e2e8f0} % Light gray for rules
+\definecolor{textmuted}{HTML}{718096} % Muted text
+
+% ── Typography ───────────────────────────────────────────────────
+\usepackage{microtype}
+\usepackage{booktabs}
+\usepackage{caption}
+\captionsetup{font=small, labelfont={bf,sf}, labelsep=period}
+
+% ── Modern table styling ─────────────────────────────────────────
+\usepackage{array}        % better column specs + cell padding
+\usepackage{colortbl}     % row/cell background colors
+
+% More breathing room in cells
+\renewcommand{\arraystretch}{1.45}
+\setlength{\tabcolsep}{10pt}
+
+% Muted rule color to match the overall palette
+\arrayrulecolor{rulecolor}
+
+% Heavier top/bottom rules from booktabs — keep them visible but subtle
+\setlength{\heavyrulewidth}{0.8pt}
+\setlength{\lightrulewidth}{0.4pt}
+\setlength{\cmidrulewidth}{0.4pt}
+
+% Header row color — applied via \rowcolor in a Lua filter;
+% defined here so it's available as a named color throughout.
+\definecolor{tableheadbg}{HTML}{eef2f7}   % cool light blue-gray
+\definecolor{tableheadfg}{HTML}{2d3748}   % near-black for header text
+\definecolor{tablerowalt}{HTML}{f8fafc}   % very subtle alternating row tint
+
+% Redefine longtable header style injected by the Lua table filter.
+% The filter wraps header cells in \thead{} — defined here:
+\newcommand{\thead}[1]{%
+  \textcolor{tableheadfg}{\bfseries\sffamily\small #1}%
+}
+
+% ── Code blocks: line numbers + soft wrap ────────────────────────
+% fvextra patches fancyvrb to support breaklines and numbers.
+% Must be loaded after fancyvrb (which pandoc's template loads first).
+\usepackage{fvextra}
+
+% Style fancyvrb line numbers: tiny, muted gray
+\renewcommand{\theFancyVerbLine}{%
+  \small\textcolor{textmuted}{\arabic{FancyVerbLine}}%
+}
+
+% Apply line numbers and soft-wrap as global defaults for all
+% fancyvrb Verbatim environments (including pandoc's Highlighting).
+% fvextra merges these with any per-environment options.
+\fvset{
+  breaklines    = true,
+  breakanywhere = false,
+  numbers       = left,
+  numbersep     = 12pt,
+  xleftmargin   = 2em,
+}
+
+% Set the code block background to match the Base16 Light theme.
+% pandoc defines Shaded/snugshade via the framed pkg using shadecolor.
+\definecolor{shadecolor}{HTML}{f5f5f5}
+
+% ── Page headers and footers (fancyhdr) ──────────────────────────
+\usepackage{fancyhdr}
+
+% Main page style: chapter title in header, page number in footer
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{%
+  \small\sffamily\color{textmuted}\nouppercase{\leftmark}%
+}
+\fancyfoot[C]{%
+  \small\sffamily\color{textmuted}\thepage%
+}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\headrule}{%
+  {\color{rulecolor}\hrule width\headwidth height\headrulewidth}%
+}
+\renewcommand{\footrulewidth}{0pt}
+
+% Plain style (chapter opening pages): no header, centered page number
+\fancypagestyle{plain}{%
+  \fancyhf{}%
+  \fancyfoot[C]{\small\sffamily\color{textmuted}\thepage}%
+  \renewcommand{\headrulewidth}{0pt}%
+}
+
+% ── Chapter & section heading styles (titlesec) ──────────────────
+\usepackage{titlesec}
+
+% Chapter: large number + title, accent rule below
+\titleformat{\chapter}[display]
+  {\normalfont\headingfontlg}
+  {\large\color{accent}\sffamily\MakeUppercase{\chaptername}\ \thechapter}
+  {6pt}
+  {\Huge\bfseries}
+  [\vspace{6pt}{\color{rulecolor}\titlerule[1.5pt]}]
+
+\titlespacing*{\chapter}{0pt}{0pt}{28pt}
+
+% Section: Inter 24pt SemiBold with subtle left accent bar
+\titleformat{\section}
+  {\headingfontmd\Large\bfseries}
+  {\thesection}
+  {0.75em}
+  {}
+
+\titlespacing*{\section}{0pt}{24pt}{6pt}
+
+% Subsection: Inter 18pt SemiBold, no number decoration
+\titleformat{\subsection}
+  {\normalfont\large\bfseries\sffamily}
+  {\thesubsection}
+  {0.65em}
+  {}
+
+\titlespacing*{\subsection}{0pt}{16pt}{4pt}
+
+% ── Callout boxes (tcolorbox) ────────────────────────────────────
+\usepackage[skins,breakable]{tcolorbox}
+\usepackage{fontawesome5}
+
+% Base style shared by all callout variants
+\tcbset{
+  callout/.style={
+    enhanced jigsaw,
+    breakable,
+    left        = 10pt,
+    right       = 8pt,
+    top         = 6pt,
+    bottom      = 6pt,
+    boxrule     = 0pt,
+    leftrule    = 3pt,
+    arc         = 2pt,
+    fonttitle   = \bfseries\sffamily\small,
+    coltitle    = #1,
+    colback     = #1!8!white,
+    colframe    = #1,
+    attach boxed title to top left = {
+      yshift    = -1mm,
+      xshift    = 6pt,
+    },
+    boxed title style = {
+      colback   = #1!8!white,
+      colframe  = #1!8!white,
+      arc       = 2pt,
+      boxrule   = 0pt,
+    },
+  }
+}
+
+% Callout box labels — override any of these in book.yaml via:
+%   header-includes:
+%     - \newcommand{\callouttip}{...}
+% \providecommand is a no-op when the command is already defined,
+% so header-includes definitions always win.
+\providecommand{\callouttip}{\faLightbulb\enspace Tip}
+\providecommand{\calloutwarning}{\faExclamationTriangle\enspace Warning}
+\providecommand{\calloutdanger}{\faFire\enspace Danger}
+
+% \begin{tipbox}[Optional title override]
+\newtcolorbox{tipbox}[1][\callouttip]{
+  callout=accentblue,
+  title=#1,
+}
+
+% \begin{warningbox}[Optional title override]
+\newtcolorbox{warningbox}[1][\calloutwarning]{
+  callout=accentorange,
+  title=#1,
+}
+
+% \begin{dangerbox}[Optional title override]
+\newtcolorbox{dangerbox}[1][\calloutdanger]{
+  callout=accent,
+  title=#1,
+}
+
+% ── List spacing ─────────────────────────────────────────────────
+% tighter lists for a professional look
+\usepackage{enumitem}
+\setlist{noitemsep, topsep=4pt, partopsep=0pt}
+\setlist[itemize,1]{label=\textcolor{accent}{\textbullet}}

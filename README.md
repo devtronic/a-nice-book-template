@@ -1,0 +1,2 @@
+# A nice book template
+
