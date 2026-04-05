@@ -1,0 +1,93 @@
+% ============================================================
+%  Code listing style — fvextra line numbers + codeOS window frame
+%
+%  Included from preamble.tex via \input.
+%  Depends on: xcolor (accent colors), tcolorbox [skins,breakable]
+%  — both loaded earlier in preamble.tex.
+% ============================================================
+
+% ── Line numbers + soft wrap (fvextra) ───────────────────────────
+% fvextra patches fancyvrb to support breaklines and line numbers.
+% Must be loaded after fancyvrb (which pandoc's template loads first).
+\usepackage{fvextra}
+
+% Line number style: small, muted gray
+\renewcommand{\theFancyVerbLine}{%
+  \small\textcolor{textmuted}{\arabic{FancyVerbLine}}%
+}
+
+% Global defaults for all fancyvrb Verbatim environments
+% (including pandoc's Highlighting environment).
+\fvset{
+  breaklines    = true,
+  breakanywhere = false,
+  numbers       = left,
+  numbersep     = 12pt,
+  xleftmargin   = 2em,
+}
+
+% ── codeOS window frame ───────────────────────────────────────────
+% pandoc wraps syntax-highlighted blocks in a Shaded environment.
+% We redefine it as a tcolorbox with a title-bar containing three
+% traffic-light dots (left) and an optional centered filename.
+
+% Colors
+\definecolor{shadecolor}{HTML}{ffffff}    % fallback for framed/snugshade
+\definecolor{codeosred}{HTML}{FF5F57}      % traffic-light red
+\definecolor{codeosyellow}{HTML}{FEBC2E}   % traffic-light yellow
+\definecolor{codeosgreen}{HTML}{28C840}    % traffic-light green
+\definecolor{codeoswinframe}{HTML}{DEDEDE} % border + title separator
+\definecolor{codewinbg}{HTML}{FFFFFF}    % window background
+
+% Filename command — injected by filters/preamble.lua before each code
+% block that carries a filename= attribute; cleared after each block.
+\newcommand{\currentcodefilename}{}
+\newcommand{\codeblockfilename}[1]{\gdef\currentcodefilename{#1}}
+
+% Invisible right-side balancer so the filename stays centred in the bar.
+\newcommand{\codeosphantom}{%
+  \phantom{\tikz[baseline=-0.6ex, inner sep=0pt]{%
+    \fill (0,0) circle[radius=5pt];%
+    \fill (16pt,0) circle[radius=5pt];%
+    \fill (32pt,0) circle[radius=5pt];%
+  }}%
+}
+
+\renewenvironment{Shaded}{%
+  \begin{tcolorbox}[%
+    enhanced,
+    breakable,
+    colback      = codewinbg,
+    colframe     = codeoswinframe,
+    colbacktitle = codewinbg,
+    coltitle     = codewinbg,
+    boxrule      = 0.8pt,
+    titlerule    = 0.5pt,
+    arc          = 10pt,
+    toptitle     = 8pt,
+    bottomtitle  = 8pt,
+    top          = 6pt,
+    bottom       = 6pt,
+    left         = 6pt,
+    right        = 6pt,
+    title        = {%
+      % Traffic-light dots — zero-width anchor so \hfill centres the filename
+      \makebox[0pt][l]{%
+        \tikz[baseline=-0.6ex, inner sep=0pt]{%
+          \fill[codeosred]    (0,0)    circle[radius=5pt];%
+          \fill[codeosyellow] (16pt,0) circle[radius=5pt];%
+          \fill[codeosgreen]  (32pt,0) circle[radius=5pt];%
+        }%
+      }%
+      % Filename centred via \hfill + phantom mirror on the right
+      \hfill
+      \ifx\currentcodefilename\empty\else
+        {\ttfamily\footnotesize\color{textmuted}\currentcodefilename}%
+      \fi
+      \hfill\codeosphantom
+    },
+  ]%
+}{%
+  \end{tcolorbox}%
+  \gdef\currentcodefilename{}%
+}

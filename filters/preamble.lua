@@ -5,6 +5,17 @@
 
 local PREAMBLE = "templates/latex/preamble.tex"
 
+-- Inject \codeblockfilename{...} before code blocks that carry filename=
+function CodeBlock(block)
+  if FORMAT ~= "latex" and FORMAT ~= "pdf" then return nil end
+  local filename = block.attributes["filename"]
+  if not filename then return nil end
+  return {
+    pandoc.RawBlock("latex", "\\codeblockfilename{" .. filename .. "}"),
+    block,
+  }
+end
+
 function Meta(meta)
   if FORMAT ~= "latex" and FORMAT ~= "pdf" then
     return nil

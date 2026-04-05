@@ -121,6 +121,46 @@ the prompt and the output text receive the same treatment.
 \end{tipbox}
 ```
 
+## Filename in the Title Bar
+
+Add a `filename=` attribute to display a filename centered in the window's title bar:
+
+````markdown
+```{.javascript filename="leftpad.js"}
+module.exports = leftpad;
+
+function leftpad(str, len, ch) {
+    str = String(str);
+    var i = -1;
+    if (!ch && ch !== 0) ch = ' ';
+    len = len - str.length;
+    while (i++ < len) {
+        str = ch + str;
+    }
+    return str;
+}
+```
+````
+
+Which renders as:
+
+```{.javascript filename="leftpad.js"}
+module.exports = leftpad;
+
+function leftpad(str, len, ch) {
+    str = String(str);
+    var i = -1;
+    if (!ch && ch !== 0) ch = ' ';
+    len = len - str.length;
+    while (i++ < len) {
+        str = ch + str;
+    }
+    return str;
+}
+```
+
+The `filename=` attribute works with any language tag. When omitted, the title bar shows only the three dots.
+
 ## Inline Code
 
 Use single backticks for inline code: a `Config` struct, the `--output` flag, a path like `build/book.pdf`. Inline code is rendered in Fira Code at 85% of the body size.

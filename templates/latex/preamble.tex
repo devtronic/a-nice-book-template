@@ -60,30 +60,8 @@
   \textcolor{tableheadfg}{\bfseries\sffamily\small #1}%
 }
 
-% ── Code blocks: line numbers + soft wrap ────────────────────────
-% fvextra patches fancyvrb to support breaklines and numbers.
-% Must be loaded after fancyvrb (which pandoc's template loads first).
-\usepackage{fvextra}
-
-% Style fancyvrb line numbers: tiny, muted gray
-\renewcommand{\theFancyVerbLine}{%
-  \small\textcolor{textmuted}{\arabic{FancyVerbLine}}%
-}
-
-% Apply line numbers and soft-wrap as global defaults for all
-% fancyvrb Verbatim environments (including pandoc's Highlighting).
-% fvextra merges these with any per-environment options.
-\fvset{
-  breaklines    = true,
-  breakanywhere = false,
-  numbers       = left,
-  numbersep     = 12pt,
-  xleftmargin   = 2em,
-}
-
-% Set the code block background to match the Base16 Light theme.
-% pandoc defines Shaded/snugshade via the framed pkg using shadecolor.
-\definecolor{shadecolor}{HTML}{f5f5f5}
+% ── Code listing style ───────────────────────────────────────────
+\input{templates/latex/code-listing-style.tex}
 
 % ── Page headers and footers (fancyhdr) ──────────────────────────
 \usepackage{fancyhdr}
