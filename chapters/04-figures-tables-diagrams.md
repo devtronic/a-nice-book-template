@@ -155,6 +155,7 @@ sequenceDiagram
 ### Entity-Relationship Diagrams
 
 ```mermaid
+%% {width=60% align=center}
 erDiagram
     BOOK ||--o{ CHAPTER : contains
     CHAPTER ||--o{ CODE-BLOCK : includes
@@ -169,7 +170,8 @@ erDiagram
 Pass a caption attribute to label a diagram:
 
 ````markdown
-```{.mermaid caption="The Pandoc build pipeline"}
+```mermaid
+%% {caption="The Pandoc build pipeline"}
 flowchart LR
     A --> B --> C
 ```
