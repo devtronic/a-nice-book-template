@@ -63,28 +63,38 @@
 % ── Code listing style ───────────────────────────────────────────
 \input{templates/latex/code-listing-style.tex}
 
+% ── Blank page after title ───────────────────────────────────────
+% With twoside, the title lands on page 1 (odd/recto). Patching
+% \maketitle to call \cleardoublepage forces page 2 to be blank and
+% the TOC to start on page 3 (next odd/recto).
+\let\origmaketitle\maketitle
+\renewcommand{\maketitle}{\origmaketitle\cleardoublepage}
+
 % ── Page headers and footers (fancyhdr) ──────────────────────────
+% Two-sided layout: headers and footers hug the outer edge.
+%   Even pages (verso / left):  content on the LEFT  (outer edge)
+%   Odd  pages (recto / right): content on the RIGHT (outer edge)
 \usepackage{fancyhdr}
 
-% Main page style: chapter title in header, page number in footer
 \pagestyle{fancy}
 \fancyhf{}
-\fancyhead[L]{%
-  \small\sffamily\color{textmuted}\nouppercase{\leftmark}%
-}
-\fancyfoot[C]{%
-  \small\sffamily\color{textmuted}\thepage%
-}
+% Header: chapter title on the outer edge of each page
+\fancyhead[LE]{\small\sffamily\color{textmuted}\nouppercase{\leftmark}}
+\fancyhead[RO]{\small\sffamily\color{textmuted}\nouppercase{\leftmark}}
+% Footer: page number on the outer edge of each page
+\fancyfoot[LE]{\small\sffamily\color{textmuted}\thepage}
+\fancyfoot[RO]{\small\sffamily\color{textmuted}\thepage}
+
 \renewcommand{\headrulewidth}{0.4pt}
 \renewcommand{\headrule}{%
   {\color{rulecolor}\hrule width\headwidth height\headrulewidth}%
 }
 \renewcommand{\footrulewidth}{0pt}
 
-% Plain style (chapter opening pages): no header, centered page number
+% Plain style (chapter opening pages): no header, page number on outer edge
 \fancypagestyle{plain}{%
   \fancyhf{}%
-  \fancyfoot[C]{\small\sffamily\color{textmuted}\thepage}%
+  \fancyfoot[LE,RO]{\small\sffamily\color{textmuted}\thepage}%
   \renewcommand{\headrulewidth}{0pt}%
 }
 

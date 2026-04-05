@@ -10,12 +10,13 @@ lang: en-US
 # ── PDF / LaTeX variables ────────────────────────────────────────
 documentclass: book
 classoption:
-  - oneside          # change to twoside for print layout
+  - twoside
   - 12pt
 papersize: letter    # or a4
 
-# Margins
-geometry: "top=1in, bottom=1in, left=0.625in, right=0.625in"
+# Margins — with twoside, "left" = inner (spine) and "right" = outer edge.
+# Increase inner for binding if needed, e.g. inner=1in, outer=0.75in.
+geometry: "top=1in, bottom=1in, left=0.875in, right=0.75in"
 
 # Fonts (XeLaTeX via fontspec)
 # Inter must be installed: brew install --cask font-inter
