@@ -45,8 +45,15 @@ In two-sided mode, XeLaTeX applies alternating inner/outer margins and the heade
 The body font is set in `book.yaml`. The template ships configured for Inter:
 
 ```yaml
-mainfont: "Inter 18pt"
-sansfont: "Inter 18pt"
+mainfont: "Inter"
+sansfont: "Inter"
+```
+
+Chapter and section headings use Inter Display (the display optical size of Inter), configured in `preamble.tex` via `\headingfontlg` and `\headingfontmd`. If you switch body fonts, update the heading families in `preamble.tex` to match:
+
+```latex
+\newfontfamily\headingfontlg{Inter Display}[...]
+\newfontfamily\headingfontmd{Inter Display}[...]
 ```
 
 To switch to a different font, install it as a system font (e.g., via a Homebrew cask) and update the family name to match `fc-list` output:

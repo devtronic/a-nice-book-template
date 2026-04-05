@@ -67,7 +67,7 @@ $ $TLMGR --usermode install \
 
 ### Mermaid CLI
 
-Diagram rendering requires the Mermaid CLI:
+Diagram rendering requires the Mermaid CLI. If you are using the Docker build (recommended), this is already included in the container and no local install is needed. For native builds, install it globally:
 
 ```bash
 $ npm install -g @mermaid-js/mermaid-cli
@@ -77,7 +77,14 @@ $ mmdc --version
 
 ## Your First Build
 
-Once dependencies are in place, build the PDF:
+The recommended way to build is with Docker. Build the image once, then every `make` target runs inside a container with all dependencies pre-installed — no local TeX, font, or Mermaid setup required:
+
+```bash
+$ make docker-build   # one-time image build
+$ make pdf            # builds inside a transient container
+```
+
+For a native build without Docker, ensure all dependencies above are in place, then build the PDF:
 
 ```bash
 $ make pdf
@@ -93,7 +100,7 @@ Open `build/book.pdf` to confirm the output. You should see a title page, a tabl
 
 ```{=latex}
 \begin{warningbox}
-If the build fails with \texttt{Font "Inter 18pt" cannot be found}, the
+If the build fails with \texttt{Font "Inter" cannot be found}, the
 Inter font cask was not installed, or the font cache is stale. Run
 \texttt{brew install --cask font-inter} and try again.
 \end{warningbox}
@@ -106,6 +113,7 @@ After installation the repository looks like this:
 ```
 book/
 ├── Makefile                   # build targets
+├── Dockerfile                 # Docker build image (recommended)
 ├── book.yaml                  # title, author, fonts, PDF settings
 ├── references.bib             # BibTeX bibliography
 ├── .gitignore                 # excludes build/

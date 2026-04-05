@@ -16,8 +16,17 @@ The Makefile is the single entry point for all output formats. This chapter cove
 
 ## PDF
 
+The recommended build path uses Docker. If a `book-builder` image exists and Docker is running, every `make` target automatically delegates to a transient container — no local XeLaTeX, fonts, or Mermaid CLI required:
+
 ```bash
-$ make pdf
+$ make docker-build   # one-time image build (~2 min)
+$ make pdf            # runs inside the container
+```
+
+The Makefile detects Docker automatically. To force a native build without Docker, pass `USE_DOCKER=0`:
+
+```bash
+$ make pdf USE_DOCKER=0
 ```
 
 Pandoc converts the Markdown chapters to a LaTeX intermediate, applies the Lua filters, includes `preamble.tex`, and passes everything to `xelatex`. The result lands at `build/book.pdf`.

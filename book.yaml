@@ -21,8 +21,8 @@ geometry: "top=1in, bottom=1in, left=0.875in, right=0.75in"
 # Fonts (XeLaTeX via fontspec)
 # Inter must be installed: brew install --cask font-inter
 # Fira Code must be installed: brew install --cask font-fira-code
-mainfont: "Inter 18pt"
-sansfont: "Inter 18pt"
+mainfont: "Inter"
+sansfont: "Inter"
 monofont: "Fira Code"
 monofontoptions:
   - "Contextuals=Alternate"  # enables Fira Code programming ligatures

@@ -4,14 +4,14 @@
 % ============================================================
 
 % ── Additional heading font families (optical-size variants) ─────
-% pandoc sets \setmainfont{Inter 18pt} from book.yaml.
-% We declare larger optical sizes for chapter/section headings.
-\newfontfamily\headingfontlg{Inter 28pt}[
+% pandoc sets \setmainfont{Inter} from book.yaml.
+% We use Inter Display (the display optical size) for chapter/section headings.
+\newfontfamily\headingfontlg{Inter Display}[
   BoldFont      = * Bold,
   ItalicFont    = * Italic,
   BoldItalicFont= * Bold Italic,
 ]
-\newfontfamily\headingfontmd{Inter 24pt}[
+\newfontfamily\headingfontmd{Inter Display}[
   BoldFont      = * Bold,
   ItalicFont    = * Italic,
   BoldItalicFont= * Bold Italic,
@@ -111,7 +111,7 @@
 
 \titlespacing*{\chapter}{0pt}{0pt}{28pt}
 
-% Section: Inter 24pt SemiBold with subtle left accent bar
+% Section: Inter Display SemiBold with subtle left accent bar
 \titleformat{\section}
   {\headingfontmd\Large\bfseries}
   {\thesection}
@@ -120,7 +120,7 @@
 
 \titlespacing*{\section}{0pt}{24pt}{6pt}
 
-% Subsection: Inter 18pt SemiBold, no number decoration
+% Subsection: Inter SemiBold, no number decoration
 \titleformat{\subsection}
   {\normalfont\large\bfseries\sffamily}
   {\thesubsection}
