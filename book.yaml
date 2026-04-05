@@ -5,7 +5,7 @@ subtitle: "A Complete Guide to This Book Writing Template"
 author:
   - "Julian"
 date: "2026"
-lang: de-DE
+lang: en-US
 
 # ── PDF / LaTeX variables ────────────────────────────────────────
 documentclass: book
@@ -15,7 +15,7 @@ classoption:
 papersize: letter    # or a4
 
 # Margins
-geometry: "top=1in, bottom=1.25in, left=1.25in, right=1.25in"
+geometry: "top=1in, bottom=1in, left=0.625in, right=0.625in"
 
 # Fonts (XeLaTeX via fontspec)
 # Inter must be installed: brew install --cask font-inter
